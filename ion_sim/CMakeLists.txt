@@ -1,7 +1,8 @@
 target_sources(
 	ion_sim PRIVATE
 
-	Runge_Kutta.hpp
-	Runge_Kutta.cpp
-
+	ion_sim/Runge_Kutta.hpp
+	ion_sim/Runge_Kutta.cpp
 )
+
+target_include_directories(ion_sim PUBLIC .)

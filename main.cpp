@@ -15,7 +15,7 @@ int main()
 		return -r * (25.0 / 5.0);
 	};
 
-	auto [r_list, v_list] = runge_kutta(r0, v0, 2000, 0, 20, std::move(f));
+	auto [r_list, v_list] = runge_kutta(r0, v0, 20000, 0, 20, std::move(f));
 	std::ofstream r_file("r_list.txt");
 	std::ofstream v_file("v_list.txt");
 

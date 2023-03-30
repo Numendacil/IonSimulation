@@ -33,4 +33,11 @@ set_target_properties(main PROPERTIES CXX_STANDARD 17)
 set_target_properties(main PROPERTIES CXX_STANDARD_REQUIRED ON)
 
 target_link_libraries(main PRIVATE ion_sim)
-target_include_directories(main PRIVATE .)
+
+add_subdirectory(externals/pybind11)
+pybind11_add_module(pysim pysim.cpp)
+target_compile_features(pysim PRIVATE cxx_std_17)
+set_target_properties(pysim PROPERTIES CXX_STANDARD 17)
+set_target_properties(pysim PROPERTIES CXX_STANDARD_REQUIRED ON)
+
+target_link_libraries(pysim PRIVATE ion_sim)

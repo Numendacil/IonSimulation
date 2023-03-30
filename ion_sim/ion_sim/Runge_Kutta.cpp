@@ -44,7 +44,7 @@ pair<vector<ArrayType>, vector<ArrayType>> runge_kutta(
 		double t = time_start + dt * (double)step;
 		
 		v_k1 = accl(r, v, t) * dt;
-		r_k1 = v_tmp * dt;
+		r_k1 = v * dt;
 		r_tmp = r + r_k1 / 2.0;
 		v_tmp = v + v_k1 / 2.0;
 

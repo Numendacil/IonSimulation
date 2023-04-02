@@ -1,10 +1,10 @@
 #include <fstream>
 #include <iostream>
-#include <ion_sim/Runge_Kutta.hpp>
+#include <ioncpp/RungeKutta.hpp>
 
 int main()
 {
-	using namespace ion_sim;
+	using namespace ioncpp;
 	ArrayType r0(3, 1);
 	ArrayType v0(3, 1);
 	r0 << 5, 0, 0;
@@ -15,7 +15,7 @@ int main()
 		return -r * (25.0 / 5.0);
 	};
 
-	auto [r_list, v_list] = runge_kutta(r0, v0, 20000, 0, 20, std::move(f));
+	auto [r_list, v_list] = CalcTrajRK(r0, v0, 20000, 0, 20, std::move(f));
 	std::ofstream r_file("r_list.txt");
 	std::ofstream v_file("v_list.txt");
 

@@ -1,12 +1,12 @@
-#include "Runge_Kutta.hpp"
+#include "RungeKutta.hpp"
 #include <iostream>
 
-namespace ion_sim
+namespace ioncpp
 {
 
 using namespace std;
 
-pair<vector<ArrayType>, vector<ArrayType>> runge_kutta(
+pair<vector<ArrayType>, vector<ArrayType>> CalcTrajRK(
 	const Eigen::Ref<const ArrayType>& init_r,
 	const Eigen::Ref<const ArrayType>& init_v,
 	size_t step,

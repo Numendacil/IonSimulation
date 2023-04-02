@@ -4,7 +4,7 @@
 #include <Eigen/Dense>
 #include <vector>
 
-namespace ion_sim
+namespace ioncpp
 {
 
 constexpr std::size_t DIM = 3;
@@ -25,7 +25,7 @@ using AcclCallback = std::function<ArrayType(const Eigen::Ref<const ArrayType>& 
  * @param accl dynamic function for acceleration, input position, velocity, time
  * @return std::pair<std::vector<ArrayType>, std::vector<ArrayType>>
  */
-std::pair<std::vector<ArrayType>, std::vector<ArrayType>> runge_kutta(
+std::pair<std::vector<ArrayType>, std::vector<ArrayType>> CalcTrajRK(
 	const Eigen::Ref<const ArrayType>& init_r,
 	const Eigen::Ref<const ArrayType>& init_v,
 	size_t step,

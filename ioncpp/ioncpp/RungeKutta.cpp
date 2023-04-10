@@ -41,7 +41,7 @@ pair<vector<ArrayType>, vector<ArrayType>> CalcTrajRK(
 
 	for (size_t i = 0; i < step; i++)
 	{
-		double t = time_start + dt * (double)step;
+		double t = time_start + dt * (double)i;
 		
 		v_k1 = accl(r, v, t) * dt;
 		r_k1 = v * dt;

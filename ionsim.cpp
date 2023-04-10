@@ -12,7 +12,7 @@
 // NOLINTNEXTLINE
 PYBIND11_MODULE(ionsim, m) 
 {
-	m.def("calculate_trajectory", &ioncpp::CalcTrajRK);
+	m.def("calculate_trajectory", &ioncpp::CalcTrajRK, pybind11::return_value_policy::move);
 
 	#ifdef VERSION_INFO
 		m.attr("__version__") = MACRO_STRINGIFY(VERSION_INFO);

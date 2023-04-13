@@ -4,10 +4,10 @@ import subprocess
 import sys
 from pathlib import Path
 
-from setuptools import Extension, setup
+from setuptools import Extension, setup, find_packages
 from setuptools.command.build_ext import build_ext
 
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 
 
 # Convert distutils Windows platform specifiers to CMake -A arguments
@@ -57,9 +57,6 @@ class CMakeBuild(build_ext):
         # (needed e.g. to build for ARM OSx on conda-forge)
         if "CMAKE_ARGS" in os.environ:
             cmake_args += [item for item in os.environ["CMAKE_ARGS"].split(" ") if item]
-
-        # In this example, we pass in the version to C++. You might not need to.
-        cmake_args += [f"-DVERSION_INFO={self.distribution.get_version()}"]
 
         if self.compiler.compiler_type != "msvc":
             # Using Ninja-build since it a) is available as a wheel and b)
@@ -117,6 +114,10 @@ class CMakeBuild(build_ext):
         build_temp = Path(self.build_temp) / ext.name
         if not build_temp.exists():
             build_temp.mkdir(parents=True)
+        
+
+        cmake_args += [f"-DVERSION_INFO={self.distribution.get_version()}"]
+        cmake_args += ["-DBUILD_MAIN=OFF"]
 
         subprocess.run(
             ["cmake", ext.sourcedir, *cmake_args], cwd=build_temp, check=True
@@ -133,6 +134,9 @@ setup(
     ext_modules=[CMakeExtension("ionsim")],
     cmdclass={"build_ext": CMakeBuild},
     zip_safe=False,
+    install_requires=["numpy"],
     extras_require={"test": ["pytest>=6.0"]},
     python_requires=">=3.7",
+    packages=['ionsim'],
+    package_data={'ionsim': ['*']}
 )

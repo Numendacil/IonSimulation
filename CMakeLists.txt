@@ -30,16 +30,24 @@ target_compile_features(ionsim PRIVATE cxx_std_17)
 set_target_properties(ionsim PROPERTIES CXX_STANDARD 17)
 set_target_properties(ionsim PROPERTIES CXX_STANDARD_REQUIRED ON)
 
+if(VERSION_INFO)
+	target_compile_definitions(ionsim PRIVATE VERSION_INFO=${VERSION_INFO})
+endif(VERSION_INFO)
+
 target_link_libraries(ionsim PRIVATE ioncpp)
 
 
 
-add_executable(main)
+option(BUILD_MAIN "Build main for testing purpose" ON)
 
-target_sources(main PRIVATE main.cpp)
+if(BUILD_MAIN)
+	add_executable(main)
 
-target_compile_features(main PRIVATE cxx_std_17)
-set_target_properties(main PROPERTIES CXX_STANDARD 17)
-set_target_properties(main PROPERTIES CXX_STANDARD_REQUIRED ON)
+	target_sources(main PRIVATE main.cpp)
 
-target_link_libraries(main PRIVATE ioncpp)
+	target_compile_features(main PRIVATE cxx_std_17)
+	set_target_properties(main PROPERTIES CXX_STANDARD 17)
+	set_target_properties(main PROPERTIES CXX_STANDARD_REQUIRED ON)
+
+	target_link_libraries(main PRIVATE ioncpp)
+endif(BUILD_MAIN)

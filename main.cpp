@@ -5,17 +5,29 @@
 int main()
 {
 	using namespace ioncpp;
-	ArrayType r0(3, 1);
-	ArrayType v0(3, 1);
-	r0 << 5, 0, 0;
-	v0 << 0, 5, 0;
+	Eigen::Array<data_t, Eigen::Dynamic, DIM> r0(2, 3);
+	Eigen::Array<data_t, Eigen::Dynamic, DIM> v0(2, 3);
+	Eigen::Array<data_t, Eigen::Dynamic, 1> q(2, 1);
+	Eigen::Array<data_t, Eigen::Dynamic, 1> m(2, 1);
+	r0 << 1, 0, 0,
+		-1, 0, 0;
+	v0 << 0, 1, 0,
+		0, -1, 0;
+	q << 1, -1;
+	m << 1, 1;
 
-	AcclCallback f = [](const auto& r, const auto& /*v*/, data_t /*t*/) -> ArrayType
+	ForceCallback f = [&m](const auto& r, const auto& /*v*/, data_t /*t*/) -> ArrayType
 	{
-		return -r * (25.0 / 5.0);
+		return -((r * 0.75).colwise() * m);
 	};
 
-	auto [r_list, v_list] = CalcTrajRK(r0, v0, 20000, 0, 20, std::move(f));
+	auto [r_list, v_list] = CalcTrajRK(
+		r0, v0, 
+		q,
+		m,
+		20000, 
+		0, 20, 
+		std::move(f));
 	std::ofstream r_file("r_list.txt");
 	std::ofstream v_file("v_list.txt");
 

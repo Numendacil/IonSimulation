@@ -14,24 +14,25 @@ pip install ./IonSimulation
 import ionsim
 import numpy as np
 
-# All vector inputs are given in shape of (3, N) rather than (N, 3) to improve speed. Use np.transpose() if necessary
-
-# Acceleration of ions at given time with given location and velocity
-def accl(r, v, t):
+# External force on ions at given time with given location and velocity
+def force(r, v, t):
 	return - 2.0 * r
 
 N = 2
-r0 = np.array([[0, 1, 0], [1, 0, 0]]).transpose()
+r0 = np.array([[0, 1, 0], [1, 0, 0]])
 v0 = np.random.rand(3, N)
+charge = np.array([0])
+mass = np.array([1])
 step = 100
 time_start = 0
 time_end = 1
 
 r_list, v_list = ionsim.calculate_trajectory(
 	r0, v0,
+	charge, mass,
 	step,
 	time_start,
 	time_end,
-	accl
+	force
 )
 ```

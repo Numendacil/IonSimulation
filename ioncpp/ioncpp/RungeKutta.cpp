@@ -1,7 +1,5 @@
 #include "RungeKutta.hpp"
 
-#include <iostream>
-
 namespace ioncpp
 {
 
@@ -35,9 +33,10 @@ ArrayType ColoumbInteraction(
 		result.col(i) = (
 			(r.col(i).matrix() * Eigen::Matrix<data_t, 1, Eigen::Dynamic>::Ones(1, N)
 			- Eigen::Matrix<data_t, Eigen::Dynamic, 1>::Ones(N, 1) * r.col(i).transpose().matrix()).array()
-			/ dist2.array().pow(1.5) * (charge.matrix() * charge.transpose().matrix()).array()
+			/ (dist2.array().sqrt() * dist2.array()) * (charge.matrix() * charge.transpose().matrix()).array()
 		).rowwise().sum();
 	}
+
 	return result;
 }
 

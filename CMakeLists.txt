@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.21)
 
 project(quantum_sim LANGUAGES CXX)
 
+add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
+add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
 
 add_library(Eigen INTERFACE)
 target_include_directories(Eigen INTERFACE externals/eigen-4.3.0)

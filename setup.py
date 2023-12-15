@@ -7,7 +7,7 @@ from pathlib import Path
 from setuptools import Extension, setup, find_packages
 from setuptools.command.build_ext import build_ext
 
-__version__ = "0.0.3"
+__version__ = "0.0.4"
 
 
 # Convert distutils Windows platform specifiers to CMake -A arguments
